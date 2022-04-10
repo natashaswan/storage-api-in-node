@@ -12,6 +12,8 @@ const storage = {};
 if (require.main === module) {
   // Start server only when we run this on the command line and explicitly ignore this while testing
 
+server.use("/", homeController);
+
   const port = process.env.PORT || 3000
   server.listen((port), () => {
     console.log(`App listening at http://localhost:${port}`)
