@@ -8,7 +8,7 @@ const uuid = require("uuid");
 const uploadController = (req, res) => {
     const repo = req.params.repository;
     const size = req.body.size;
-    const pathToFile = path.join(__dirname, "..", "models/", repo + ".js");
+    const pathToFile = path.join(__dirname, "..", "models/", repo + ".json");
 
     if (size){
         const dataToWrite = {
@@ -16,7 +16,7 @@ const uploadController = (req, res) => {
             size: size
         }
     
-        let dataRead = fs.readFileSync((pathToFile), "utf-8", (err, data)=>{
+        let dataRead = fs.readFileSync((pathToFile), (err, data)=>{
                     if (err){
                         console.log(err);
                     }

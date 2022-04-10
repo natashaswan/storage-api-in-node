@@ -8,8 +8,8 @@ const deleteController = (req, res) => {
     const repo = req.params.repository;
 
     if (objectID && repo) {
-        const pathToFile = path.join(__dirname, "..", "models/", repo + ".js");
-        let dataRead = fs.readFileSync((pathToFile), "utf-8", (err, data)=>{
+        const pathToFile = path.join(__dirname, "..", "models/", repo + ".json");
+        let dataRead = fs.readFileSync((pathToFile), (err, data)=>{
                     if (err){
                         console.log(err);
                     }
@@ -34,7 +34,7 @@ const deleteController = (req, res) => {
             }            
         })   
          
-        res.status(200).json( {status: "200 OK"} );
+        res.status(200).send( "Status OK" );
     } 
     
 }

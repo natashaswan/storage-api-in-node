@@ -6,9 +6,9 @@ const path = require("path");
 const downloadController = (req, res) => {
     const objectID = req.params.id;
     const repo = req.params.repository;
-    const pathToFile = path.join(__dirname, "..", "models/", repo + ".js");
+    const pathToFile = path.join(__dirname, "..", "models/", repo + ".json");
 
-    let dataRead = fs.readFileSync((pathToFile), "utf-8", (err, data)=>{
+    let dataRead = fs.readFileSync((pathToFile), (err, data)=>{
                 if (err){
                     console.log(err);
                 }
@@ -19,16 +19,20 @@ const downloadController = (req, res) => {
             });
      
     dataRead = JSON.parse(dataRead);
-    console.log(typeof dataRead);
     function getDataByID(oid) {
         return dataRead.filter(
             function(dataRead){ return dataRead.oid == oid }
         );
       }
       
-    let dataToShow = getDataByID(objectID);   
-    console.log(typeof dataToShow)
-    res.status(200).json( {status: "200 OK" , data: dataToShow} );
+    const dataToShow = getDataByID(objectID); 
+
+    if (dataToShow.length>0){
+        res.status(200).send(`status: "200 OK" , data: ${dataToShow}`);
+    }
+    else {
+        res.status(404).send("404 NOT FOUND");
+    }
     
 }
 module.exports = downloadController;
