@@ -5,7 +5,6 @@ const path = require("path");
 
 const downloadController = (req, res) => {
     const objectID = req.params.id;
-    console.log(objectID)
     const repo = req.params.repository;
     const pathToFile = path.join(__dirname, "..", "models/", repo + ".js");
 
@@ -27,10 +26,8 @@ const downloadController = (req, res) => {
         );
       }
       
-    let dataToShow = getDataByID(objectID);
-    
-     
-    console.log(dataToShow)
+    let dataToShow = getDataByID(objectID);   
+    console.log(typeof dataToShow)
     res.status(200).json( {status: "200 OK" , data: dataToShow} );
     
 }
